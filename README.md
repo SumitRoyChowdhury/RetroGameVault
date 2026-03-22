@@ -66,7 +66,7 @@ Retro-Game-Vault/
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/SumitRoyChowdhury/RetroGameVault.git]
+    git clone https://github.com/SumitRoyChowdhury/RetroGameVault.git
     ```
 
 2.  **Navigate to the project folder:**
