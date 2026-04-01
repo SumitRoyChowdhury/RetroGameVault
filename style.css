@@ -1,10 +1,9 @@
 
 
 body {
-  position: relative; /* Essential for containing the pseudoelement */
+  position: relative;
   min-width: 100vw;
   min-height: 100vh;
-  /* Other hero section styles */
   margin: 0;
   background-image: url("backgroundImage15.png");
   background-size: cover;
@@ -36,25 +35,17 @@ body {
     top: 0;
 } */
 
-:root {
-  --bg-dark: #0D0D15;
-  --neon-cyan: #00F3FF;
-  --neon-pink: #FF0055;
-  --nav-height: 70px;
-}
 
-/* Navbar Base */
 .navbar {
   height: var(--nav-height);
-  background-color: var(--bg-dark); /* Solid dark for contrast */
+  background-color: var(--bg-dark);
   display: flex;
   align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 2px solid var(--neon-cyan);
-  /* This creates the 'glow' onto the background image */
+  border-bottom: 2px solid #00F3FF;
   box-shadow: 0 4px 20px rgba(0, 243, 255, 0.3);
 }
 
@@ -67,9 +58,8 @@ body {
   align-items: center;
 }
 
-/* Logo Styling */
 .logo {
-  font-family: 'Courier New', Courier, monospace; /* Retro feel */
+  font-family: 'Courier New', Courier, monospace;
   font-size: 1.5rem;
   font-weight: bold;
   color: #FFFFFF;
@@ -79,10 +69,9 @@ body {
 
 .logo span {
   color: rgb(119, 241, 241);
-  text-shadow: 0 0 10px var(--neon-cyan);
+  text-shadow: 0 0 10px #00F3FF;
 }
 
-/* Links */
 .nav-links {
   display: flex;
   list-style: none;
@@ -99,7 +88,7 @@ body {
 
 .nav-links a:hover, .nav-links a.active {
   color: var(--neon-cyan);
-  text-shadow: 0 0 8px var(--neon-cyan);
+  text-shadow: 0 0 8px #00F3FF;
 }
 .title-container{
   display: flex;
@@ -118,21 +107,6 @@ div .website-subtitle{
   font-size: 1.3rem;
 }
 
-.btn-search {
-  background: transparent;
-  border: 1px solid var(--neon-cyan);
-  color: var(--neon-cyan);
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: 0.3s;
-}
-
-.btn-search:hover {
-  background: var(--neon-cyan);
-  color: var(--bg-dark);
-  box-shadow: 0 0 15px var(--neon-cyan);
-}
 
 #search-box{
   margin-top: 2px;
