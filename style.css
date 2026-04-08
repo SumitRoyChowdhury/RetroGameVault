@@ -8,37 +8,11 @@ body {
   background-image: url("backgroundImage15.png");
   background-size: cover;
   background-position: bottom;
-
 }
 
-/* body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('backgroundImg15.png');
-  background-size: cover;
-  background-position: bottom; */
- /* opacity: 0.7; /* The opacity of the background image (0.0 - 1.0) */
- /*z-index: -1; /* Places the background behind the content */
-/* } */
-
-/* #navBar{
-    width: 100%;
-    height: 10vh;
-    background-color: #0D0D15;
-    border-bottom: 2px solid #00F3FF;
-    box-shadow: 0 4px 20px rgba(0, 243, 255, 0.3);
-    position: fixed;
-    top: 0;
-} */
-
-
 .navbar {
-  height: var(--nav-height);
-  background-color: var(--bg-dark);
+  height: 8vh;
+  background-color: rgba(0, 0, 0, 0.542);
   display: flex;
   align-items: center;
   position: fixed;
@@ -86,10 +60,11 @@ body {
   transition: 0.3s;
 }
 
-.nav-links a:hover, .nav-links a.active {
-  color: var(--neon-cyan);
+.nav-links a:hover, .nav-links {
+  color: #00fefc;
   text-shadow: 0 0 8px #00F3FF;
 }
+
 .title-container{
   display: flex;
   flex-direction: column;
@@ -183,32 +158,65 @@ label{
 .card{
   display: flex;
   flex-direction: column;
-  row-gap: 4px;
   padding: 5px;
   width: 20vw;
-  height: 30vh;
+  height: 34vh;
   border: 1.5px solid rgb(95, 158, 158);
   border-radius: 10px;
   backdrop-filter: blur(3px);
+  row-gap: 10px;
+  align-items: center;
+  justify-content: center;
+  
+
 }
 
 .card button{
   border-radius: 5px;
   height: 3vh;
+  width: 100%;
   background-color: transparent;
-  border: 1px solid cyan;
   color: whitesmoke;
+  cursor: pointer;
+}
 
+.wishlist-btn{
+  border: 2px solid #FF7600;
+  box-shadow: 2px 2px 4px #FF9D00, -2px -2px 4px #FF9D00;
+}
+
+.compare-stats{
+  border: 2px solid cyan;
+  box-shadow: 2px 2px 4px rgb(140, 255, 255), -2px -2px 4px rgb(140, 255, 255);
+}
+
+.game-title{
+  display: flex;
+  justify-content: center;
+  color: whitesmoke;
+  overflow:hidden;
+}
+
+.img-container{
+  display: flex;
+  justify-content: center;
 }
 .card img{
-  width: 15vw;
-  height: 15vh;
+  width: 18vw;
+  height: 18vh;
+  border-radius: 10px;
 }
 
 .cards-container{
+  height: 76vh;
+  width: 68vw;
   display: flex;
   flex-wrap: wrap;
+  column-gap: 1vw;
+  row-gap: 2vh;
   margin-left: 1vw;
+  overflow-x: hidden; /* This prevents horizontal scroll bar */
+  overflow-y: auto; /* Adds scroll bar only when needed */
 }
 
 .hero-section{
