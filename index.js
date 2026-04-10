@@ -8,10 +8,37 @@ let searchBtnEle = document.getElementById("search-btn");
 let platformsEle = document.getElementsByName("Platform");
 let genreEle = document.getElementsByName("genre");
 let cardsContainer = document.getElementsByClassName("cards-container")[0];
+let yearSliderEle = document.getElementById("year-slider");
 
 
-// let retroBtnEle = document.getElementById("retroBtn");
-// let modernBtnEle = document.getElementById("modernBtn");
+console.log(yearSliderEle.value);
+
+function popular(){
+    let gameData = [];
+    fetch(`https://api.rawg.io/api/games?key=${apiKey}&dates=2015-01-01,2026-12-31&ordering=-rating`)
+    .then(res => res.json())
+    .then(data =>{
+        gameData = data["results"];
+        console.log(gameData);
+        render(gameData);
+})
+}
+
+popular();
+
+function searchByYear(){
+    let gameData = [];
+    year = yearSliderEle.value;
+    console.log(year);
+    fetch(`https://api.rawg.io/api/games?key=${apiKey}&dates=${year}-01-01,${year}-12-31`)
+    .then(res => res.json())
+    .then(data =>{
+        gameData = data["results"];
+        render(gameData);
+    })
+}
+
+yearSliderEle.addEventListener("input", searchByYear);
 
 function searchByTitle(){
     let gameData = [];
@@ -22,7 +49,6 @@ function searchByTitle(){
     .then(res => res.json())
     .then(data =>{
         gameData = data["results"];
-        console.log(gameData);
         render(gameData);
 })
 }
@@ -37,7 +63,7 @@ for(let ele of platformsEle){
 
 function searchByPlatform(platform){
     let gameData = [];
-    fetch(`https://api.rawg.io/api/games?key=${apiKey}&platform=${Number(platform)}`)
+    fetch(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${Number(platform)}`)
     .then(res => res.json())
     .then(data =>{
         gameData = data["results"]
@@ -53,7 +79,7 @@ for(let ele of genreEle){
 
 function searchByGenre(genre){
     let gameData = [];
-    fetch(`https://api.rawg.io/api/games?key=${apiKey}&genre=${genre}`)
+    fetch(`https://api.rawg.io/api/games?key=${apiKey}&genres=${genre}`)
     .then(res => res.json())
     .then(data =>{
         gameData = data["results"];
@@ -66,15 +92,6 @@ function render(arr){
     for(let ele of arr){
         let background_image = ele["background_image"];
         let card = document.createElement("div");
-        // card.innerHTML = `
-        // <div>
-        //     <div class="img-container">
-        //         <img src=${background_image} alt="Game card"/>
-        //     </div>
-        //     <div class="game-title">${ele["name"]}</div>
-        //     <button class="wishlist-btn">Add to wishlist</button>
-        //     <button class="compare-stats">Compare stats</button>
-        // </div>`;
         card.innerHTML = `
             <div class="img-container">
                 <img src=${background_image} alt="Game card"/>
@@ -101,38 +118,40 @@ cardsContainer.addEventListener("click", function(event){
             }
             saveToWishList(gameDetails);
     }
-    else if(event.target.closest(".compare-stats")){
-    let card = event.target.closest(".card");
-    if(!card) return;
+    else if(event.target.classList.contains("compare-stats")){
+        let card = event.target.closest(".card");
+        if(!card) return;
 
-    let gameTitle = card.getElementsByClassName(".game-title")[0].innerText.trim();
-    let gameImg = card.getElementsByTagName("img")[0].src;
+        let gameTitle = card.getElementsByClassName("game-title")[0].innerText.trim();
+        let gameImg = card.getElementsByTagName("img")[0].src;
 
-    let gameDetails = {
-        title: gameTitle,
-        img: gameImg
-    };
-    let compareList = JSON.parse(localStorage.getItem("compareList"));
-    if (compareList == null){
-        compareList = [];
-    }
-    if(compareList.length >= 2){
-        alert("You can only compare 2 games");
-        return;
-    }
-    let exists = false;
-    compareList.forEach(game =>{
-        if(game["title"] === gameTitle){
-            exists = true;
+        let gameDetails = {
+            "title": gameTitle,
+            "img": gameImg
+        };
+        let compareList = JSON.parse(localStorage.getItem("compareList"));
+        if (compareList == null){
+            compareList = [];
         }
-    })
-    if(exists){
-        alert("Already added for comparison");
-        return;
-    }
-    compareList.push(gameDetails);
-    localStorage.setItem("compareList", JSON.stringify(compareList));
-    window.location.href = "compare.html";
+        if (compareList.length >= 2){
+            alert("You can only compare 2 games");
+        }
+        else if(compareList.length < 2){
+            let exists = false;
+            compareList.forEach(game =>{
+                if(game["title"] == gameTitle){
+                    exists = true;
+                }
+            })
+            if(!exists){
+                compareList.push(gameDetails);
+                localStorage.setItem("compareList", JSON.stringify(compareList));
+            }
+            else if(exists){
+                alert("Already added")
+            }
+        }
+        console.log(compareList);
     }
 })
 
@@ -142,13 +161,6 @@ function saveToWishList(game){
         wishList = [];
     }
     let alreadyExists = false;
-    // for(let ele of wishList){
-    //     if(ele["title"] === game["title"]){
-    //         alreadyExists = true;
-    //         alert("Already Exists");
-    //         break;
-    //     }
-    // }
     wishList.forEach(ele => {
         if(ele["title"] === game["title"]){
             alreadyExists = true;
